@@ -36,9 +36,13 @@ SQL menjadi alat utama untuk memfilter, mengelompokkan, dan mengecualikan data s
 
 ## 📊 Data sources <a name="data">
 
-Investigasi pada studi ini menggunakan dua sumber data utama yang berasal langsung dari sistem internal organisasi. Seluruh data tersimpan dalam database terpusat dan digunakan untuk mendukung proses monitoring serta audit keamanan secara berkala. Tabel `log_in_attempts` berisi catatan aktivitas login pengguna. Data ini mencakup informasi waktu login, tanggal login, status keberhasilan akses, serta lokasi atau negara asal percobaan login. Tabel ini menjadi sumber utama untuk mengidentifikasi pola akses tidak normal seperti login gagal di luar jam kerja, aktivitas pada tanggal tertentu, dan percobaan login dari luar wilayah yang diizinkan.
+Investigasi pada studi ini menggunakan dua sumber data utama yang berasal langsung dari sistem internal organisasi. Seluruh data tersimpan dalam database terpusat dan digunakan untuk mendukung proses monitoring serta audit keamanan secara berkala.
 
-Tabel `employees` menyimpan data karyawan dan perangkat yang terdaftar di sistem. Informasi di dalamnya meliputi identitas karyawan, departemen, serta lokasi kantor atau gedung tempat perangkat digunakan. Data ini digunakan untuk memetakan karyawan berdasarkan unit kerja, menentukan perangkat mana yang perlu mendapatkan pembaruan keamanan, dan mengecualikan departemen tertentu sesuai kebutuhan investigasi. Kombinasi kedua tabel ini memungkinkan analisis yang lebih kontekstual. Data login memberikan indikasi ancaman, sementara data karyawan membantu mengaitkan aktivitas tersebut dengan pengguna dan perangkat yang relevan. Pendekatan ini memastikan setiap hasil query memiliki nilai operasional dan dapat langsung ditindaklanjuti oleh tim keamanan.
+Tabel `log_in_attempts` berisi catatan aktivitas login pengguna. Data ini mencakup informasi waktu login, tanggal login, status keberhasilan akses, serta lokasi atau negara asal percobaan login. Tabel ini menjadi sumber utama untuk mengidentifikasi pola akses tidak normal seperti login gagal di luar jam kerja, aktivitas pada tanggal tertentu, dan percobaan login dari luar wilayah yang diizinkan.
+
+Tabel `employees` menyimpan data karyawan dan perangkat yang terdaftar di sistem. Informasi di dalamnya meliputi identitas karyawan, departemen, serta lokasi kantor atau gedung tempat perangkat digunakan. Data ini digunakan untuk memetakan karyawan berdasarkan unit kerja, menentukan perangkat mana yang perlu mendapatkan pembaruan keamanan, dan mengecualikan departemen tertentu sesuai kebutuhan investigasi. 
+
+Kombinasi kedua tabel ini memungkinkan analisis yang lebih kontekstual. Data login memberikan indikasi ancaman, sementara data karyawan membantu mengaitkan aktivitas tersebut dengan pengguna dan perangkat yang relevan. Pendekatan ini memastikan setiap hasil query memiliki nilai operasional dan dapat langsung ditindaklanjuti oleh tim keamanan.
 
 ---
 
