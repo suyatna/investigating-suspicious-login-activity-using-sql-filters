@@ -142,12 +142,14 @@ Beberapa entri `device_id` masih bernilai `NULL`, menandakan perangkat yang belu
 
 ---
 
-## 🏁 Final summary <a name="summary">
+## 📝 Final summary <a name="summary">
 
-Investigasi ini merangkum seluruh proses analisis dengan menyatukan temuan dari filtering data menggunakan SQL. Proses dimulai dari penelusuran login gagal di luar jam kerja, lalu dipersempit ke tanggal tertentu, hingga segmentasi karyawan berdasarkan departemen dan lokasi. Setiap tahap menunjukkan bagaimana data mentah dapat diolah menjadi insight keamanan yang relevan dan siap ditindaklanjuti.
+Studi ini mendokumentasikan proses investigasi keamanan berbasis SQL dengan fokus pada analisis aktivitas login dan segmentasi karyawan di dalam sebuah organisasi. Seluruh tahapan dirancang sebagai bagian dari portofolio cybersecurity, dengan tujuan menunjukkan kemampuan teknis dalam membaca data, menyaring informasi, serta menarik insight yang relevan dari sudut pandang keamanan sistem.
 
-Penggunaan operator `AND`, `OR`, dan`NOT` menegaskan peran SQL sebagai alat investigasi yang presisi. Filter berbasis waktu membantu mengidentifikasi pola login yang tidak wajar. Filter tanggal mengarahkan analisis ke momen kritis. Segmentasi karyawan memberi konteks tentang siapa saja yang perlu diprioritaskan berdasarkan peran dan akses sistem.
+Investigasi diawali dengan peninjauan log login sebagai indikator awal potensi insiden. Analisis terhadap login gagal di luar jam kerja menunjukkan pola akses yang tidak lazim dan layak mendapat perhatian lebih lanjut. Penggunaan operator `AND`, filter waktu, serta kondisi keberhasilan login memperlihatkan bagaimana SQL dapat digunakan secara efektif untuk mempersempit ruang lingkup investigasi.
 
-Studi ini memperlihatkan bahwa keamanan tidak hanya bergantung pada tools, tetapi pada cara membaca dan membatasi data. Log keamanan tanpa filtering hanya menjadi kumpulan informasi besar yang sulit dimaknai. Filtering yang tepat membuat pola risiko lebih cepat terlihat dan membantu pengambilan keputusan yang lebih terukur.
+Tahap berikutnya berfokus pada penyaringan data berdasarkan tanggal tertentu dengan `OR` logic, yang membantu mengisolasi aktivitas pada periode spesifik tanpa kehilangan konteks historis. Pendekatan ini memperkuat pemahaman terhadap pola login dalam rentang waktu yang berdekatan dan mendukung analisis berbasis kronologi.
 
-Pembelajaran utama terletak pada pentingnya berpikir analitis saat bekerja dengan data keamanan. Setiap kondisi dalam query mewakili asumsi yang harus selaras dengan konteks ancaman. Ketelitian menjadi kunci karena kesalahan kecil dalam logika filtering dapat menghasilkan kesimpulan yang keliru dan berdampak pada keputusan keamanan.
+Selain log aktivitas, investigasi diperluas ke tabel karyawan untuk melakukan segmentasi pengguna. Berbagai skenario diterapkan, termasuk penyaringan berdasarkan departemen dan lokasi kantor menggunakan kombinasi `AND` dan `LIKE`, pengelompokan lintas departemen dengan `OR`, serta pengecualian departemen tertentu melalui `NOT` logic. Setiap pendekatan menunjukkan peran SQL dalam mendukung pengambilan keputusan keamanan yang terarah.
+
+Secara keseluruhan, portofolio ini menampilkan pemahaman praktis terhadap penggunaan SQL sebagai alat investigasi keamanan. Dokumentasi disusun secara terstruktur dan mudah dipahami, mencerminkan kemampuan analisis data, penalaran keamanan, serta kesiapan untuk menjelaskan proses teknis dalam konteks profesional dan kebutuhan rekrutmen di bidang cybersecurity.
