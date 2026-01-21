@@ -104,7 +104,7 @@ Temuan ini memperjelas konteks risiko yang muncul sebelumnya. Pengecualian Meksi
 
 ## 👥 Employee segmentation for security updates <a name="securityupdate">
 
-### a. Marketing department
+### a. Employees in marketing department
 
 Analisis kemudian diarahkan ke segmentasi karyawan. Fokusnya mengidentifikasi kelompok pengguna yang perlu diprioritaskan dalam pembaruan keamanan, terutama terkait perangkat dan akses ke sistem internal. Data diambil dari tabel `employees` dengan dua filter utama, yaitu departemen dan lokasi kantor. Departemen Marketing dipilih karena sering berinteraksi dengan pihak eksternal. Kantor dengan awalan East digunakan sebagai penanda satu klaster lokasi fisik yang perlu ditinjau lebih dalam.
 
@@ -116,7 +116,7 @@ Hasil query menunjukkan tujuh karyawan dari departemen Marketing yang bekerja di
 
 Segmentasi ini membantu tim keamanan menentukan sasaran distribusi security update secara lebih tepat. Identifikasi pengguna, departemen, dan lokasi memungkinkan tindakan lanjutan dilakukan secara fokus tanpa mengganggu operasional organisasi secara keseluruhan.
 
-### b. Finance or sales department
+### b. Employees in finance or sales department
 
 Tahap segmentasi selanjutnya diarahkan pada karyawan dari departemen Finance dan Sales. Kedua tim ini dipilih karena menangani data sensitif dan memiliki frekuensi akses sistem yang tinggi, sehingga sering menjadi fokus utama dalam pembaruan keamanan dan pengaturan kontrol akses. Pengelompokan dua departemen dilakukan dalam satu proses menggunakan operator `OR`. Pendekatan ini memudahkan penarikan data tanpa perlu menjalankan query terpisah untuk masing-masing departemen.
 
@@ -128,7 +128,7 @@ Hasil query menampilkan 71 karyawan dari kedua departemen tersebut. Data yang mu
 
 Beberapa baris data menunjukkan `device_id` bernilai `NULL`. Situasi ini menandakan adanya perangkat yang belum tercatat di sistem manajemen aset. Dari sudut pandang keamanan, perangkat tanpa identitas berisiko tertinggal dari pembaruan atau kebijakan proteksi yang berlaku.Segmentasi menggunakan logika `OR` membantu tim keamanan menyusun prioritas secara lebih rapi. Pemetaan berdasarkan departemen kritis memungkinkan langkah mitigasi dilakukan secara selektif dan terkontrol tanpa berdampak langsung ke seluruh organisasi.
 
-### c. Employees outside IT
+### c. Employees not in IT department
 
 Tahap ini menekankan segmentasi dengan exclusion filtering untuk memisahkan karyawan non IT dari proses tertentu dalam pembaruan keamanan. Tim IT biasanya memiliki kebijakan, jadwal, dan mekanisme pembaruan berbeda dibanding departemen lain. Pengecualian dilakukan menggunakan operator NOT di SQL, sehingga seluruh karyawan selain dari departemen IT dapat ditarik dalam satu query.
 
