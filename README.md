@@ -66,7 +66,7 @@ Identifikasi pola dilakukan dengan memfilter tabel  `log_in_attempts` menggunaka
 
 <img width="645" height="426" alt="Screenshot 2026-01-21 at 23-23-27 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/c6df27e9-c0ea-4cc1-b21e-448fbc657e11" />
 
-Hasil query menampilkan 19 entri yang seluruhnya merupakan login gagal setelah jam kerja. Aktivitas tercatat pada malam hari hingga mendekati tengah malam. Lokasi akses tersebar di beberapa negara seperti US, CAN, MEXICO, USA, dan CANADA, yang menunjukkan sumber percobaan tidak berasal dari satu wilayah saja.
+Hasil query menampilkan 19 entri yang seluruhnya merupakan login gagal setelah jam kerja. Aktivitas tercatat pada malam hari hingga mendekati tengah malam. Lokasi akses tersebar di beberapa negara seperti `US`, `CAN`, `MEXICO`, `USA`, dan `CANADA`, yang menunjukkan sumber percobaan tidak berasal dari satu wilayah saja.
 
 Kemunculan beberapa username secara berulang dalam rentang tanggal yang berdekatan mengindikasikan percobaan akses berulang. Pola waktu yang tidak wajar, status login gagal, dan variasi lokasi menjadikan data ini relevan sebagai prioritas investigasi. Temuan ini memberi dasar yang jelas untuk melanjutkan analisis ke detail tanggal dan lokasi pada tahap berikutnya.
 
@@ -85,3 +85,25 @@ Hasil query menghasilkan 75 baris data yang merekam seluruh percobaan login pada
 Beberapa username muncul berulang pada dua tanggal berbeda dengan status login yang bervariasi. Pola ini memberi indikasi adanya percobaan akses berulang yang perlu diperhatikan. Data lokasi menunjukkan asal login dari berbagai negara dengan format yang tidak selalu konsisten, menandakan sumber akses yang beragam.
 
 Temuan ini menjadi jembatan antara analisis waktu dan lokasi. Pemahaman terhadap aktivitas pada tanggal tertentu membantu mempersempit fokus investigasi ke tahap berikutnya dengan dasar data yang lebih terarah dan relevan.
+
+---
+
+## 🌐 Login attempts outside authorized locations <a name="outside">
+
+Setelah analisis waktu dan tanggal selesai, perhatian diarahkan ke faktor lokasi. Tim keamanan telah memastikan bahwa aktivitas mencurigakan tidak berasal dari Meksiko, sehingga fokus difokuskan pada seluruh login dari luar wilayah tersebut. Lokasi digunakan sebagai petunjuk awal untuk melihat kemungkinan akses lintas negara yang tidak sesuai dengan pola kerja normal.
+
+Pemfilteran dilakukan menggunakan SQL dengan kombinasi `NOT` dan `LIKE` pada kolom country. Pendekatan ini dipilih karena penulisan nama negara tidak selalu konsisten. Entri seperti `MEX` dan `MEXICO` tetap dapat dikelompokkan dengan pola yang sama, lalu dikecualikan dari hasil menggunakan `NOT`.
+
+<img width="645" height="466" alt="Screenshot 2026-01-21 at 23-48-09 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/8318262b-2d0f-41fa-8d22-002a85e1e759" />
+
+Query tersebut menghasilkan 144 baris data yang seluruhnya berasal dari negara selain Meksiko. Aktivitas login datang dari beberapa wilayah seperti `US`, `USA`, `CAN`, dan `CANADA`. Pola ini menunjukkan bahwa sebagian besar akses sistem memang terjadi dari luar lokasi yang sebelumnya dianggap aman.
+
+Hasil data memperlihatkan kombinasi login berhasil dan gagal. Beberapa akun mencoba masuk berulang kali dari negara yang sama dalam waktu berdekatan. Pola ini mengarah pada kemungkinan percobaan brute force ringan atau penggunaan kredensial yang tidak valid dari luar wilayah operasional utama.
+
+Temuan ini memperjelas konteks risiko yang muncul sebelumnya. Pengecualian Meksiko membantu mempersempit fokus analisis pada sumber akses eksternal yang perlu dipantau lebih ketat di tahap investigasi selanjutnya.
+
+## 👥 Employee segmentation for security updates <a name="securityupdate">
+
+Setelah analisis waktu dan tanggal selesai, perhatian diarahkan ke faktor lokasi. Tim keamanan telah memastikan bahwa aktivitas mencurigakan tidak berasal dari Meksiko, sehingga fokus difokuskan pada seluruh login dari luar wilayah tersebut. Lokasi digunakan sebagai petunjuk awal untuk melihat kemungkinan akses lintas negara yang tidak sesuai dengan pola kerja normal.
+
+<img width="645" height="234" alt="Screenshot 2026-01-22 at 00-01-20 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/5b5889a9-76c7-470f-be01-0b4737e1add4" />
