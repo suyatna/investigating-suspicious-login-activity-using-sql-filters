@@ -20,7 +20,7 @@ Studi ini menjadi bagian dari portofolio cybersecurity yang memperlihatkan bagai
 
 Analisis dilakukan langsung di tingkat database dengan memanfaatkan operator `AND`, `OR`, dan `NOT` untuk memfilter log login serta data karyawan. SQL membantu mengungkap login gagal di luar jam kerja, aktivitas pada tanggal tertentu, percobaan akses dari lokasi yang tidak diizinkan, hingga pengelompokan karyawan berdasarkan departemen. Alur ini merefleksikan tahapan investigasi awal yang umum diterapkan tim security sebelum masuk ke fase mitigasi.
 
-Proyek ini mengacu pada materi Google Cybersecurity Professional Certificate, khususnya course Tools of the Trade: Linux and SQL. Pembahasan difokuskan pada SQL sebagai alat investigasi, mencakup pemfilteran waktu dan tanggal, pencarian pola dengan `LIKE`, serta pengecualian data menggunakan `NOT`. Portofolio ini disusun sebagai dokumentasi profesional yang ringkas, mudah dipahami, dan relevan untuk kebutuhan rekrutmen di bidang cybersecurity.
+Proyek ini mengacu pada materi Google Cybersecurity Professional Certificate, khususnya course Tools of the Trade: Linux and SQL. Pembahasan difokuskan pada SQL sebagai alat investigasi, mencakup pemfilteran waktu dan tanggal, pencarian pola dengan `LIKE`, serta pengecualian data menggunakan `NOT`.
 
 ---
 
@@ -36,8 +36,6 @@ SQL menjadi alat utama untuk memfilter, mengelompokkan, dan mengecualikan data s
 
 ## 📊 Data sources <a name="data">
 
-Investigasi pada studi ini menggunakan dua sumber data utama yang berasal langsung dari sistem internal organisasi. Seluruh data tersimpan dalam database terpusat dan digunakan untuk mendukung proses monitoring serta audit keamanan secara berkala.
-
 Tabel `log_in_attempts` berisi catatan aktivitas login pengguna. Data ini mencakup informasi waktu login, tanggal login, status keberhasilan akses, serta lokasi atau negara asal percobaan login. Tabel ini menjadi sumber utama untuk mengidentifikasi pola akses tidak normal seperti login gagal di luar jam kerja, aktivitas pada tanggal tertentu, dan percobaan login dari luar wilayah yang diizinkan.
 
 Tabel `employees` menyimpan data karyawan dan perangkat yang terdaftar di sistem. Informasi di dalamnya meliputi identitas karyawan, departemen, serta lokasi kantor atau gedung tempat perangkat digunakan. Data ini digunakan untuk memetakan karyawan berdasarkan unit kerja, menentukan perangkat mana yang perlu mendapatkan pembaruan keamanan, dan mengecualikan departemen tertentu sesuai kebutuhan investigasi. 
@@ -46,6 +44,12 @@ Kombinasi kedua tabel ini memungkinkan analisis yang lebih kontekstual. Data log
 
 ---
 
-## 📊 Initial findings <a name="finding">
+## 🔍 Initial findings <a name="finding">
 
-Investigasi pada studi ini menggunakan dua sumber data utama yang berasal langsung dari sistem internal organisasi. Seluruh data tersimpan dalam database terpusat dan digunakan untuk mendukung proses monitoring serta audit keamanan secara berkala. Tabel `log_in_attempts` berisi catatan aktivitas login pengguna. Data ini mencakup informasi waktu login, tanggal login, status keberhasilan akses, serta lokasi atau negara asal percobaan login. Tabel ini menjadi sumber utama untuk mengidentifikasi pola akses tidak normal seperti login gagal di luar jam kerja, aktivitas pada tanggal tertentu, dan percobaan login dari luar wilayah yang diizinkan.
+Investigasi diawali dengan meninjau log login sebagai sumber data utama. Dari sisi keamanan, proses login sering menjadi titik awal terjadinya penyalahgunaan sistem. Setiap percobaan akses meninggalkan catatan waktu, lokasi, dan status, sehingga log ini memberi gambaran awal tentang aktivitas yang terjadi di dalam sistem.
+
+Peninjauan awal menunjukkan beberapa pola yang tidak sesuai dengan kebiasaan kerja normal. Percobaan login muncul di luar jam operasional dan tercatat berasal dari lokasi yang jarang digunakan. Temuan ini belum cukup untuk menyimpulkan adanya insiden, namun sudah memberikan sinyal kuat untuk ditelusuri lebih lanjut.
+
+Analisis kemudian difokuskan dengan menerapkan filter SQL. Penyaringan data dilakukan untuk menyoroti aktivitas yang paling relevan sebelum masuk ke tahap query yang lebih detail. Pendekatan ini membantu proses investigasi tetap rapi, terarah, dan berfokus pada indikasi risiko yang paling jelas.
+
+---
