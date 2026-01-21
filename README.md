@@ -34,11 +34,13 @@ SQL menjadi alat utama untuk memfilter, mengelompokkan, dan mengecualikan data s
 
 ## 📊 Data sources <a name="data">
 
-Tabel `log_in_attempts` berisi catatan aktivitas login pengguna. Data ini mencakup informasi waktu login, tanggal login, status keberhasilan akses, serta lokasi atau negara asal percobaan login. Tabel ini menjadi sumber utama untuk mengidentifikasi pola akses tidak normal seperti login gagal di luar jam kerja, aktivitas pada tanggal tertentu, dan percobaan login dari luar wilayah yang diizinkan.
+Investigasi memanfaatkan dua tabel utama dari database internal organisasi yang saling melengkapi. Struktur ini membantu melihat konteks keamanan secara lebih utuh tanpa memisahkan data teknis dan identitas pengguna.
 
-Tabel `employees` menyimpan data karyawan dan perangkat yang terdaftar di sistem. Informasi di dalamnya meliputi identitas karyawan, departemen, serta lokasi kantor atau gedung tempat perangkat digunakan. Data ini digunakan untuk memetakan karyawan berdasarkan unit kerja, menentukan perangkat mana yang perlu mendapatkan pembaruan keamanan, dan mengecualikan departemen tertentu sesuai kebutuhan investigasi. 
+Tabel `log_in_attempts` menjadi titik awal analisis. Isi tabel mencatat seluruh aktivitas login, termasuk waktu, tanggal, status keberhasilan, serta informasi lokasi atau negara asal. Pola akses yang tidak normal dapat terlihat, seperti login gagal di luar jam kerja atau percobaan akses dari wilayah yang tidak termasuk area operasional.
 
-Kombinasi kedua tabel ini memungkinkan analisis yang lebih kontekstual. Data login memberikan indikasi ancaman, sementara data karyawan membantu mengaitkan aktivitas tersebut dengan pengguna dan perangkat yang relevan. Pendekatan ini memastikan setiap hasil query memiliki nilai operasional dan dapat langsung ditindaklanjuti oleh tim keamanan.
+Tabel `employees` berfungsi mengaitkan aktivitas login dengan identitas pengguna. Informasi karyawan, departemen, serta lokasi kantor atau gedung memberikan gambaran siapa yang terlibat dan perangkat mana yang berpotensi terdampak.
+
+Pendekatan berbasis dua tabel ini membuat investigasi terasa lebih kontekstual. Aktivitas mencurigakan tidak berhenti sebagai baris data, tetapi dapat ditelusuri hingga ke pengguna dan unit kerja terkait. Alur ini memberi dasar yang jelas untuk menentukan langkah keamanan berikutnya.
 
 ---
 
