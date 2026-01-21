@@ -142,12 +142,12 @@ Beberapa entri `device_id` masih bernilai `NULL`, menandakan perangkat yang belu
 
 ---
 
-## 👥 Final summary <a name="summary">
+## 🏁 Final summary <a name="summary">
 
-Investigasi ini menutup rangkaian analisis dengan satu pemahaman utama bahwa data menjadi bermakna ketika difilter dengan konteks yang tepat. Melalui serangkaian query SQL, setiap potongan informasi yang awalnya tersebar dapat disusun menjadi pola yang relevan untuk kebutuhan keamanan.
+Investigasi ini merangkum seluruh proses analisis dengan menyatukan temuan dari filtering data menggunakan SQL. Proses dimulai dari penelusuran login gagal di luar jam kerja, lalu dipersempit ke tanggal tertentu, hingga segmentasi karyawan berdasarkan departemen dan lokasi. Setiap tahap menunjukkan bagaimana data mentah dapat diolah menjadi insight keamanan yang relevan dan siap ditindaklanjuti.
 
-Dari proses ini, terlihat jelas bahwa penggunaan operator `AND`, `OR`, dan `NOT` bukan sekadar teknik query, melainkan alat investigasi. Filtering berdasarkan waktu login, status keberhasilan, tanggal tertentu, hingga segmentasi karyawan memungkinkan identifikasi risiko dilakukan secara terarah. Tanpa filtering, anomali seperti login gagal di luar jam kerja atau perangkat tanpa identitas akan mudah tersembunyi di balik volume data yang besar.
+Penggunaan operator `AND`, `OR`, dan`NOT` menegaskan peran SQL sebagai alat investigasi yang presisi. Filter berbasis waktu membantu mengidentifikasi pola login yang tidak wajar. Filter tanggal mengarahkan analisis ke momen kritis. Segmentasi karyawan memberi konteks tentang siapa saja yang perlu diprioritaskan berdasarkan peran dan akses sistem.
 
-Investigasi ini juga memperkuat pemahaman bahwa keamanan siber tidak selalu dimulai dari serangan yang kompleks. Banyak indikasi awal justru muncul dari aktivitas sederhana seperti upaya login dan distribusi akses pengguna. SQL berperan sebagai jembatan antara data mentah dan keputusan keamanan, membantu analis menarik kesimpulan berbasis bukti, bukan asumsi.
+Studi ini memperlihatkan bahwa keamanan tidak hanya bergantung pada tools, tetapi pada cara membaca dan membatasi data. Log keamanan tanpa filtering hanya menjadi kumpulan informasi besar yang sulit dimaknai. Filtering yang tepat membuat pola risiko lebih cepat terlihat dan membantu pengambilan keputusan yang lebih terukur.
 
-Sebagai penutup, studi ini menunjukkan keterkaitan yang kuat antara SQL, proses investigasi, dan praktik cybersecurity. SQL menyediakan cara sistematis untuk menggali data, investigasi memberikan kerangka berpikir analitis, dan keamanan siber memastikan setiap temuan diterjemahkan menjadi tindakan yang relevan. Kombinasi ketiganya membentuk fondasi penting bagi profesional keamanan dalam menjaga sistem tetap aman, terkontrol, dan siap menghadapi risiko yang terus berkembang.
+Pembelajaran utama terletak pada pentingnya berpikir analitis saat bekerja dengan data keamanan. Setiap kondisi dalam query mewakili asumsi yang harus selaras dengan konteks ancaman. Ketelitian menjadi kunci karena kesalahan kecil dalam logika filtering dapat menghasilkan kesimpulan yang keliru dan berdampak pada keputusan keamanan.
