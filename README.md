@@ -104,6 +104,50 @@ Temuan ini memperjelas konteks risiko yang muncul sebelumnya. Pengecualian Meksi
 
 ## 👥 Employee segmentation for security updates <a name="securityupdate">
 
-Setelah analisis waktu dan tanggal selesai, perhatian diarahkan ke faktor lokasi. Tim keamanan telah memastikan bahwa aktivitas mencurigakan tidak berasal dari Meksiko, sehingga fokus difokuskan pada seluruh login dari luar wilayah tersebut. Lokasi digunakan sebagai petunjuk awal untuk melihat kemungkinan akses lintas negara yang tidak sesuai dengan pola kerja normal.
+### a. Marketing department
+
+Analisis kemudian diarahkan ke segmentasi karyawan. Fokusnya mengidentifikasi kelompok pengguna yang perlu diprioritaskan dalam pembaruan keamanan, terutama terkait perangkat dan akses ke sistem internal. Data diambil dari tabel `employees` dengan dua filter utama, yaitu departemen dan lokasi kantor. Departemen Marketing dipilih karena sering berinteraksi dengan pihak eksternal. Kantor dengan awalan East digunakan sebagai penanda satu klaster lokasi fisik yang perlu ditinjau lebih dalam.
+
+Query berikut menggabungkan kedua kriteria tersebut menggunakan operator `AND` dan `LIKE` untuk mencocokkan pola lokasi kantor:
 
 <img width="645" height="234" alt="Screenshot 2026-01-22 at 00-01-20 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/5b5889a9-76c7-470f-be01-0b4737e1add4" />
+
+Hasil query menunjukkan tujuh karyawan dari departemen Marketing yang bekerja di kantor wilayah East. Data ini menampilkan informasi `username` dan `device_id` yang terhubung langsung dengan sistem organisasi. Output memperlihatkan sebagian besar karyawan memiliki `device_id` yang tercatat. Satu entri muncul dengan nilai `NULL`, menandakan perangkat yang belum terdaftar atau belum terhubung ke sistem manajemen aset. Kondisi ini perlu diperhatikan karena perangkat tanpa identifikasi berisiko tidak menerima pembaruan keamanan atau kebijakan kontrol akses.
+
+Segmentasi ini membantu tim keamanan menentukan sasaran distribusi security update secara lebih tepat. Identifikasi pengguna, departemen, dan lokasi memungkinkan tindakan lanjutan dilakukan secara fokus tanpa mengganggu operasional organisasi secara keseluruhan.
+
+### b. Finance or sales department
+
+Tahap segmentasi selanjutnya diarahkan pada karyawan dari departemen Finance dan Sales. Kedua tim ini dipilih karena menangani data sensitif dan memiliki frekuensi akses sistem yang tinggi, sehingga sering menjadi fokus utama dalam pembaruan keamanan dan pengaturan kontrol akses. Pengelompokan dua departemen dilakukan dalam satu proses menggunakan operator `OR`. Pendekatan ini memudahkan penarikan data tanpa perlu menjalankan query terpisah untuk masing-masing departemen.
+
+Query SQL yang digunakan sebagai berikut:
+
+<img width="645" height="406" alt="Screenshot 2026-01-22 at 00-15-10 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/8f594dcf-9cc9-41f6-9097-ac12e1e98433" />
+
+Hasil query menampilkan 71 karyawan dari kedua departemen tersebut. Data yang muncul mencakup `employee_id`, `username`, `department`, `office`, dan `device_id` yang penting untuk pengelolaan akun serta keamanan perangkat. Sebaran lokasi karyawan terlihat cukup luas, mencakup kantor North, South, East, West, hingga Central. Kondisi ini menunjukkan bahwa pembaruan keamanan perlu direncanakan lintas wilayah, tidak hanya terfokus pada satu lokasi.
+
+Beberapa baris data menunjukkan `device_id` bernilai `NULL`. Situasi ini menandakan adanya perangkat yang belum tercatat di sistem manajemen aset. Dari sudut pandang keamanan, perangkat tanpa identitas berisiko tertinggal dari pembaruan atau kebijakan proteksi yang berlaku.Segmentasi menggunakan logika `OR` membantu tim keamanan menyusun prioritas secara lebih rapi. Pemetaan berdasarkan departemen kritis memungkinkan langkah mitigasi dilakukan secara selektif dan terkontrol tanpa berdampak langsung ke seluruh organisasi.
+
+### c. Employees outside IT
+
+Tahap ini menekankan segmentasi dengan exclusion filtering untuk memisahkan karyawan non IT dari proses tertentu dalam pembaruan keamanan. Tim IT biasanya memiliki kebijakan, jadwal, dan mekanisme pembaruan berbeda dibanding departemen lain. Pengecualian dilakukan menggunakan operator NOT di SQL, sehingga seluruh karyawan selain dari departemen IT dapat ditarik dalam satu query.
+
+Berikut adalah query SQL yang digunakan:
+
+<img width="645" height="416" alt="Screenshot 2026-01-22 at 01-24-33 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/e40f9fab-221a-4608-90ff-c0677bedb34b" />
+
+Query menghasilkan 161 karyawan dari berbagai departemen selain IT, termasuk Marketing, Finance, Sales, dan Human Resources. Data mencakup `employee_id`, `username`, `department`, `office`, dan `device_id` yang penting untuk memetakan cakupan pembaruan keamanan. Sebagian besar karyawan berada di luar IT dan tersebar di berbagai lokasi kantor. Kondisi ini menunjukkan kebutuhan untuk membedakan kebijakan security update antara tim teknis dan non teknis, terutama terkait waktu penerapan dan intervensi sistem.
+
+Beberapa entri `device_id` masih bernilai `NULL`, menandakan perangkat yang belum tercatat di inventaris dan berpotensi tidak menerima pembaruan otomatis. Exclusion filtering dengan `NOT` logic memungkinkan segmentasi yang lebih strategis. Tim keamanan dapat fokus mendistribusikan pembaruan ke kelompok relevan tanpa melibatkan IT di proses yang tidak diperlukan, menjaga efisiensi operasional sekaligus keamanan.
+
+---
+
+## 👥 Final summary <a name="summary">
+
+Investigasi ini menutup rangkaian analisis dengan satu pemahaman utama bahwa data menjadi bermakna ketika difilter dengan konteks yang tepat. Melalui serangkaian query SQL, setiap potongan informasi yang awalnya tersebar dapat disusun menjadi pola yang relevan untuk kebutuhan keamanan.
+
+Dari proses ini, terlihat jelas bahwa penggunaan operator `AND`, `OR`, dan `NOT` bukan sekadar teknik query, melainkan alat investigasi. Filtering berdasarkan waktu login, status keberhasilan, tanggal tertentu, hingga segmentasi karyawan memungkinkan identifikasi risiko dilakukan secara terarah. Tanpa filtering, anomali seperti login gagal di luar jam kerja atau perangkat tanpa identitas akan mudah tersembunyi di balik volume data yang besar.
+
+Investigasi ini juga memperkuat pemahaman bahwa keamanan siber tidak selalu dimulai dari serangan yang kompleks. Banyak indikasi awal justru muncul dari aktivitas sederhana seperti upaya login dan distribusi akses pengguna. SQL berperan sebagai jembatan antara data mentah dan keputusan keamanan, membantu analis menarik kesimpulan berbasis bukti, bukan asumsi.
+
+Sebagai penutup, studi ini menunjukkan keterkaitan yang kuat antara SQL, proses investigasi, dan praktik cybersecurity. SQL menyediakan cara sistematis untuk menggali data, investigasi memberikan kerangka berpikir analitis, dan keamanan siber memastikan setiap temuan diterjemahkan menjadi tindakan yang relevan. Kombinasi ketiganya membentuk fondasi penting bagi profesional keamanan dalam menjaga sistem tetap aman, terkontrol, dan siap menghadapi risiko yang terus berkembang.
