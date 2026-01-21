@@ -57,3 +57,31 @@ Peninjauan awal menunjukkan pola yang tidak sesuai dengan kebiasaan kerja normal
 Analisis kemudian difokuskan menggunakan filter SQL untuk mempersempit data. Perhatian diarahkan pada informasi yang paling relevan sebelum masuk ke tahap query secara detail. Alur ini menjaga proses investigasi tetap rapi dan berbasis prioritas, dengan fokus pada indikasi risiko yang paling jelas terlebih dahulu.
 
 ---
+
+## 🕒 After hours failed login attempts <a name="failed">
+
+Tahap awal analisis teknis menyoroti percobaan login gagal yang terjadi di luar jam kerja. Pola seperti ini sering muncul saat ada upaya akses tidak sah, terutama ketika sistem seharusnya jarang digunakan. Waktu akses menjadi indikator penting karena aktivitas setelah jam operasional biasanya membawa risiko lebih tinggi.
+
+Identifikasi pola dilakukan dengan memfilter tabel  `log_in_attempts` menggunakan dua kriteria utama. Batas waktu login ditetapkan setelah pukul 18.00. Status login dibatasi hanya pada percobaan yang gagal. Operator `AND` memastikan kedua kondisi tersebut terpenuhi dalam satu query.
+
+<img width="645" height="426" alt="Screenshot 2026-01-21 at 23-23-27 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/c6df27e9-c0ea-4cc1-b21e-448fbc657e11" />
+
+Hasil query menampilkan 19 entri yang seluruhnya merupakan login gagal setelah jam kerja. Aktivitas tercatat pada malam hari hingga mendekati tengah malam. Lokasi akses tersebar di beberapa negara seperti US, CAN, MEXICO, USA, dan CANADA, yang menunjukkan sumber percobaan tidak berasal dari satu wilayah saja.
+
+Kemunculan beberapa username secara berulang dalam rentang tanggal yang berdekatan mengindikasikan percobaan akses berulang. Pola waktu yang tidak wajar, status login gagal, dan variasi lokasi menjadikan data ini relevan sebagai prioritas investigasi. Temuan ini memberi dasar yang jelas untuk melanjutkan analisis ke detail tanggal dan lokasi pada tahap berikutnya.
+
+---
+
+## 📅 Login attempts on specific dates <a name="specificdate">
+
+Setelah pola login di luar jam kerja terlihat jelas, arah investigasi difokuskan pada tanggal yang memicu peringatan sistem. Tanggal 9 Mei 2022 menjadi titik perhatian karena bertepatan dengan peningkatan aktivitas login. Data dari satu hari sebelumnya ikut dianalisis agar konteks kejadian bisa dipahami dengan lebih utuh.
+
+Pemfilteran data dilakukan menggunakan SQL dengan logika `OR`. Pendekatan ini memungkinkan dua tanggal dianalisis dalam satu query tanpa memisahkan alur data. Tujuan utama tetap pada membaca pola aktivitas secara menyeluruh, bukan sekadar menyoroti satu kejadian tunggal.
+
+<img width="645" height="470" alt="Screenshot 2026-01-21 at 23-36-40 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/5f71a263-4dda-4595-9496-f494d8d4e648" />
+
+Hasil query menghasilkan 75 baris data yang merekam seluruh percobaan login pada kedua tanggal tersebut. Aktivitas tersebar dari dini hari hingga malam. Sebagian login berhasil, sementara cukup banyak yang gagal, menunjukkan intensitas percobaan akses yang tinggi dalam waktu singkat.
+
+Beberapa username muncul berulang pada dua tanggal berbeda dengan status login yang bervariasi. Pola ini memberi indikasi adanya percobaan akses berulang yang perlu diperhatikan. Data lokasi menunjukkan asal login dari berbagai negara dengan format yang tidak selalu konsisten, menandakan sumber akses yang beragam.
+
+Temuan ini menjadi jembatan antara analisis waktu dan lokasi. Pemahaman terhadap aktivitas pada tanggal tertentu membantu mempersempit fokus investigasi ke tahap berikutnya dengan dasar data yang lebih terarah dan relevan.
