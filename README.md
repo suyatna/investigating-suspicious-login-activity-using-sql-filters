@@ -16,11 +16,9 @@
 
 ## 🧠 Project overview <a name="overview">
 
-Studi ini menjadi bagian dari portofolio cybersecurity yang memperlihatkan bagaimana SQL digunakan dalam proses investigasi keamanan. Skenario disusun dari sudut pandang seorang security analyst di organisasi berskala besar yang sedang menelusuri aktivitas login mencurigakan dan mengidentifikasi karyawan yang berpotensi terdampak. Perhatian utama diarahkan pada cara mengolah data mentah di database agar menghasilkan insight yang berguna untuk keputusan keamanan.
+Studi ini menjadi bagian dari portofolio cybersecurity yang menunjukkan penggunaan SQL dalam proses investigasi keamanan. Skenario disusun dari sudut pandang seorang security analyst di organisasi berskala besar yang menelusuri aktivitas login mencurigakan dan mengidentifikasi karyawan yang berpotensi terdampak. Fokus utama diarahkan pada pengolahan data mentah di database agar menghasilkan insight yang relevan untuk mendukung keputusan keamanan.
 
-Analisis dilakukan langsung di tingkat database dengan memanfaatkan operator `AND`, `OR`, dan `NOT` untuk memfilter log login serta data karyawan. SQL membantu mengungkap login gagal di luar jam kerja, aktivitas pada tanggal tertentu, percobaan akses dari lokasi yang tidak diizinkan, hingga pengelompokan karyawan berdasarkan departemen. Alur ini merefleksikan tahapan investigasi awal yang umum diterapkan tim security sebelum masuk ke fase mitigasi.
-
-Proyek ini mengacu pada materi Google Cybersecurity Professional Certificate, khususnya course Tools of the Trade: Linux and SQL. Pembahasan difokuskan pada SQL sebagai alat investigasi, mencakup pemfilteran waktu dan tanggal, pencarian pola dengan `LIKE`, serta pengecualian data menggunakan `NOT`.
+Analisis dilakukan langsung di tingkat database dengan memanfaatkan operator `AND`, `OR`, dan `NOT` untuk memfilter log login serta data karyawan. SQL digunakan untuk mengungkap login gagal di luar jam kerja, aktivitas pada tanggal tertentu, percobaan akses dari lokasi yang tidak diizinkan, serta pengelompokan karyawan berdasarkan departemen. Proyek ini mengacu pada materi Google Cybersecurity Professional Certificate, khususnya course Tools of the Trade: Linux and SQL, dengan penekanan pada SQL sebagai alat investigasi awal sebelum masuk ke tahap mitigasi.
 
 ---
 
