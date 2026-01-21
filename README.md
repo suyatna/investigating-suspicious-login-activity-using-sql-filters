@@ -34,7 +34,7 @@ SQL menjadi alat utama untuk memfilter, mengelompokkan, dan mengecualikan data s
 
 ## 📊 Data sources <a name="data">
 
-Investigasi memanfaatkan dua tabel utama dari database internal organisasi yang saling melengkapi. Struktur ini membantu melihat konteks keamanan secara lebih utuh tanpa memisahkan data teknis dan identitas pengguna.
+Investigasi menggunakan dua tabel utama yang tersedia di database internal dari materi kursus. Struktur ini membantu melihat konteks keamanan secara lebih utuh tanpa memisahkan data teknis dan identitas pengguna.
 
 Tabel `log_in_attempts` menjadi titik awal analisis. Isi tabel mencatat seluruh aktivitas login, termasuk waktu, tanggal, status keberhasilan, serta informasi lokasi atau negara asal. Pola akses yang tidak normal dapat terlihat, seperti login gagal di luar jam kerja atau percobaan akses dari wilayah yang tidak termasuk area operasional.
 
@@ -50,10 +50,10 @@ Pendekatan berbasis dua tabel ini membuat investigasi terasa lebih kontekstual. 
 
 ## 🔍 Initial findings <a name="finding">
 
-Investigasi diawali dengan meninjau log login sebagai sumber data utama. Dari sisi keamanan, proses login sering menjadi titik awal terjadinya penyalahgunaan sistem. Setiap percobaan akses meninggalkan catatan waktu, lokasi, dan status, sehingga log ini memberi gambaran awal tentang aktivitas yang terjadi di dalam sistem.
+Investigasi diawali dengan meninjau log aktivitas login. Akses masuk sering menjadi titik awal penyalahgunaan sistem dari sudut pandang keamanan. Setiap percobaan login menyimpan informasi waktu, lokasi, dan status keberhasilan, sehingga data ini memberi gambaran awal tentang kondisi sistem yang sebenarnya.
 
-Peninjauan awal menunjukkan beberapa pola yang tidak sesuai dengan kebiasaan kerja normal. Percobaan login muncul di luar jam operasional dan tercatat berasal dari lokasi yang jarang digunakan. Temuan ini belum cukup untuk menyimpulkan adanya insiden, namun sudah memberikan sinyal kuat untuk ditelusuri lebih lanjut.
+Peninjauan awal menunjukkan pola yang tidak sesuai dengan kebiasaan kerja normal. Percobaan login muncul di luar jam operasional dan beberapa akses tercatat dari lokasi yang jarang digunakan. Situasi ini belum bisa langsung dianggap sebagai insiden, namun cukup kuat untuk memicu analisis lanjutan.
 
-Analisis kemudian difokuskan dengan menerapkan filter SQL. Penyaringan data dilakukan untuk menyoroti aktivitas yang paling relevan sebelum masuk ke tahap query yang lebih detail. Pendekatan ini membantu proses investigasi tetap rapi, terarah, dan berfokus pada indikasi risiko yang paling jelas.
+Analisis kemudian difokuskan menggunakan filter SQL untuk mempersempit data. Perhatian diarahkan pada informasi yang paling relevan sebelum masuk ke tahap query secara detail. Alur ini menjaga proses investigasi tetap rapi dan berbasis prioritas, dengan fokus pada indikasi risiko yang paling jelas terlebih dahulu.
 
 ---
