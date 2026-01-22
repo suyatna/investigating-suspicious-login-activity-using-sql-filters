@@ -146,7 +146,7 @@ Beberapa `device_id` masih `NULL`, menandakan perangkat belum tercatat di invent
 
 ## 📝 Final summary <a name="summary">
 
-Studi kasus ini mencatat pengalaman melakukan investigasi keamanan pakai SQL dengan fokus pada analisis aktivitas login dan segmentasi karyawan di sebuah organisasi. Seluruh langkah dibuat sebagai bagian portofolio cybersecurity untuk menunjukkan kemampuan membaca data, menyaring informasi, dan menarik insight relevan dari perspektif keamanan sistem.
+Studi kasus ini mencatat pengalaman saya melakukan investigasi keamanan pakai SQL dengan fokus pada analisis aktivitas login dan segmentasi karyawan di sebuah organisasi. Seluruh langkah dibuat sebagai bagian portofolio cybersecurity untuk menunjukkan kemampuan membaca data, menyaring informasi, dan menarik insight relevan dari perspektif keamanan sistem.
 
 Investigasi dimulai dengan meninjau log login sebagai indikator awal potensi insiden. Analisis login gagal di luar jam kerja memperlihatkan pola akses tidak biasa yang perlu diperhatikan lebih lanjut. Operator `AND`, filter waktu, dan status login dipakai untuk mempersempit ruang lingkup investigasi secara efektif.
 
