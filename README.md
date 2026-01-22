@@ -16,140 +16,140 @@
 
 ## 🧠 Project overview <a name="overview">
 
-Studi ini menjadi bagian dari portofolio cybersecurity yang menunjukkan penggunaan SQL dalam proses investigasi keamanan. Skenario disusun dari sudut pandang seorang security analyst di organisasi berskala besar yang menelusuri aktivitas login mencurigakan dan mengidentifikasi karyawan yang berpotensi terdampak. Fokus utama diarahkan pada pengolahan data mentah di database supaya menghasilkan insight yang relevan untuk mendukung keputusan keamanan.
+Studi kasus ini dibuat sebagai bagian dari portofolio cybersecurity untuk menunjukkan penggunaan SQL dalam investigasi keamanan. Skenario dibangun seolah saya sebagai security analyst di organisasi besar, menelusuri login mencurigakan dan mengidentifikasi karyawan yang mungkin terdampak. Fokus utama adalah mengolah data mentah di database supaya bisa mendapatkan insight yang berguna untuk keputusan keamanan.
 
-Analisis dilakukan langsung di tingkat database dengan memanfaatkan operator `AND`, `OR`, dan `NOT` untuk memfilter log login serta data karyawan. SQL digunakan untuk mengungkap login gagal di luar jam kerja, aktivitas pada tanggal tertentu, percobaan akses dari lokasi yang tidak diizinkan, serta pengelompokan karyawan berdasarkan departemen. Proyek ini mengacu pada materi Google Cybersecurity Professional Certificate, khususnya course Tools of the Trade: Linux and SQL, dengan penekanan pada SQL sebagai alat investigasi awal sebelum masuk ke tahap mitigasi.
+Analisis dilakukan langsung di database dengan memakai operator `AND`, `OR`, dan `NOT` untuk memfilter log login dan data karyawan. SQL dipakai untuk menemukan login gagal di luar jam kerja, aktivitas pada tanggal tertentu, percobaan akses dari lokasi tidak sah, serta mengelompokkan karyawan berdasarkan departemen. Proyek ini mengacu pada materi Google Cybersecurity Professional Certificate, khususnya course Tools of the Trade: Linux and SQL, dengan SQL sebagai alat investigasi awal sebelum tahap mitigasi dimulai.
 
 ---
 
 ## 🕵️ Investigation context <a name="context">
 
-Studi ini menggambarkan peran saya sebagai bagian dari tim keamanan di organisasi besar dengan ribuan akun aktif dan perangkat yang saling terhubung. Sistem monitoring mulai memunculkan pola login yang tidak wajar, seperti akses di luar jam kerja dan percobaan masuk dari lokasi yang tidak seharusnya. Kondisi ini menuntut respons cepat supaya tidak berkembang menjadi insiden yang lebih besar.
+Studi kasus ini menggambarkan peran saya sebagai anggota tim keamanan di organisasi besar dengan ribuan akun dan perangkat yang terhubung. Sistem monitoring mulai menunjukkan pola login aneh, seperti akses di luar jam kerja dan percobaan masuk dari lokasi yang tidak seharusnya. Kondisi ini menuntut respons cepat supaya insiden tidak melebar.
 
-Investigasi difokuskan pada dua sumber data utama, yaitu tabel `log_in_attempts` dan tabel `employees`. Data login digunakan untuk menelusuri pola akses mencurigakan, sementara data karyawan membantu mengidentifikasi perangkat dan departemen yang berpotensi terdampak. Seluruh analisis dilakukan langsung di level database supaya setiap temuan tetap akurat dan dapat dipertanggungjawabkan.
+Investigasi fokus pada dua tabel utama, `log_in_attempts` dan `employees`. Data login dipakai untuk menelusuri pola akses mencurigakan, sementara data karyawan membantu mengetahui perangkat dan departemen yang mungkin terdampak. Analisis dilakukan langsung di database supaya hasilnya akurat dan bisa dipertanggungjawabkan.
 
-SQL menjadi alat utama untuk memfilter, mengelompokkan, dan mengecualikan data sesuai kebutuhan investigasi. Pendekatan ini membantu mengubah baris data mentah menjadi konteks yang jelas, sehingga tim security dapat memahami situasi dengan cepat dan menentukan langkah pengamanan berikutnya.
+SQL digunakan untuk memfilter, mengelompokkan, dan mengecualikan data sesuai kebutuhan investigasi. Pendekatan ini mengubah baris data mentah menjadi konteks yang jelas, sehingga tim security cepat memahami situasi dan bisa menentukan langkah pengamanan berikutnya.
 
 ---
 
 ## 📊 Data sources <a name="data">
 
-Investigasi menggunakan dua tabel utama yang tersedia di database internal dari materi kursus. Struktur ini membantu melihat konteks keamanan secara lebih utuh tanpa memisahkan data teknis dan identitas pengguna.
+Investigasi menggunakan dua tabel utama yang tersedia di database internal dari materi kursus. Struktur ini membantu melihat konteks keamanan lebih lengkap tanpa memisahkan data teknis dan identitas pengguna.
 
-Tabel `log_in_attempts` menjadi titik awal analisis. Isi tabel mencatat seluruh aktivitas login, termasuk waktu, tanggal, status keberhasilan, serta informasi lokasi atau negara asal. Pola akses yang tidak normal dapat terlihat, seperti login gagal di luar jam kerja atau percobaan akses dari wilayah yang tidak termasuk area operasional.
+Tabel `log_in_attempts` menjadi titik awal analisis. Isinya mencatat semua aktivitas login, termasuk tanggal, waktu, status keberhasilan, dan lokasi atau negara asal. Pola akses yang tidak normal terlihat jelas, seperti login gagal di luar jam kerja atau percobaan masuk dari wilayah yang bukan area operasional.
 
 <img width="645" height="324" alt="Screenshot 2026-01-21 at 19-23-00 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/f04d3e52-41f4-4048-8243-c32378c15480" />
 
-Tabel `employees` berfungsi mengaitkan aktivitas login dengan identitas pengguna. Informasi karyawan, departemen, serta lokasi kantor atau gedung memberikan gambaran siapa yang terlibat dan perangkat mana yang berpotensi terdampak.
+Tabel `employees` mengaitkan aktivitas login dengan identitas pengguna. Informasi karyawan, departemen, dan lokasi kantor menunjukkan siapa yang terlibat dan perangkat mana yang mungkin terdampak.
 
 <img width="645" height="358" alt="Screenshot 2026-01-21 at 19-23-46 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/30f57fe3-d177-46c8-aba4-615de64deeb0" />
 
-Pendekatan berbasis dua tabel ini membuat investigasi terasa lebih kontekstual. Aktivitas mencurigakan tidak berhenti sebagai baris data, tetapi dapat ditelusuri hingga ke pengguna dan unit kerja terkait. Alur ini memberi dasar yang jelas untuk menentukan langkah keamanan berikutnya.
+Pendekatan pakai dua tabel ini membuat investigasi lebih kontekstual. Aktivitas mencurigakan tidak hanya berupa baris data, tetapi bisa ditelusuri sampai ke pengguna dan unit kerjanya. Alur ini memberi dasar jelas untuk menentukan langkah keamanan berikutnya.
 
 ---
 
 ## 🔍 Initial findings <a name="finding">
 
-Investigasi diawali dengan meninjau log aktivitas login. Akses masuk sering menjadi titik awal penyalahgunaan sistem dari sudut pandang keamanan. Setiap percobaan login menyimpan informasi waktu, lokasi, dan status keberhasilan, sehingga data ini memberi gambaran awal tentang kondisi sistem yang sebenarnya.
+Investigasi dimulai dengan meninjau log aktivitas login. Akses masuk sering jadi titik awal penyalahgunaan sistem. Setiap percobaan login menyimpan data waktu, lokasi, dan status berhasil atau gagal, yang memberi gambaran kondisi sistem saat itu.
 
-Peninjauan awal menunjukkan pola yang tidak sesuai dengan kebiasaan kerja normal. Percobaan login muncul di luar jam operasional dan beberapa akses tercatat dari lokasi yang jarang digunakan. Situasi ini belum bisa langsung dianggap sebagai insiden, namun cukup kuat untuk memicu analisis lanjutan.
+Peninjauan awal menunjukkan pola yang tidak biasa. Login terjadi di luar jam kerja dan beberapa datang dari lokasi yang jarang dipakai. Kondisi ini belum pasti jadi insiden, tapi cukup kuat untuk lanjut ke analisis lebih dalam.
 
-Analisis kemudian difokuskan menggunakan filter SQL untuk mempersempit data. Perhatian diarahkan pada informasi yang paling relevan sebelum masuk ke tahap query secara detail. Alur ini menjaga proses investigasi tetap rapi dan berbasis prioritas, dengan fokus pada indikasi risiko yang paling jelas terlebih dahulu.
+Analisis difokuskan pakai filter SQL untuk mempersempit data. Perhatian diarahkan pada info paling relevan sebelum membuat query lebih detail. Alur ini membuat investigasi tetap rapi, terfokus, dan menyoroti risiko yang paling jelas dulu.
 
 ---
 
 ## 🕒 After hours failed login attempts <a name="failed">
 
-Tahap awal analisis teknis menyoroti percobaan login gagal yang terjadi di luar jam kerja. Pola seperti ini sering muncul saat ada upaya akses tidak sah, terutama ketika sistem seharusnya jarang digunakan. Waktu akses menjadi indikator penting karena aktivitas setelah jam operasional biasanya membawa risiko lebih tinggi.
+Analisis dimulai dengan menyoroti percobaan login gagal di luar jam kerja. Pola ini biasanya muncul saat ada upaya akses tidak sah, karena sistem seharusnya jarang digunakan di waktu tersebut. Waktu akses jadi indikator penting karena aktivitas setelah jam operasional cenderung berisiko lebih tinggi.
 
-Identifikasi pola dilakukan dengan memfilter tabel  `log_in_attempts` menggunakan dua kriteria utama. Batas waktu login ditetapkan setelah pukul 18.00. Status login dibatasi hanya pada percobaan yang gagal. Operator `AND` memastikan kedua kondisi tersebut terpenuhi dalam satu query.
+Pola dikenali dengan memfilter tabel `log_in_attempts` menggunakan dua kriteria utama. Login dicatat setelah pukul 18.00 dan statusnya gagal. Operator `AND` dipakai supaya kedua kondisi ini muncul bersamaan dalam satu query.
 
 <img width="645" height="426" alt="Screenshot 2026-01-21 at 23-23-27 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/c6df27e9-c0ea-4cc1-b21e-448fbc657e11" />
 
-Hasil query menampilkan 19 entri yang seluruhnya merupakan login gagal setelah jam kerja. Aktivitas tercatat pada malam hari hingga mendekati tengah malam. Lokasi akses tersebar di beberapa negara seperti `US`, `CAN`, `MEXICO`, `USA`, dan `CANADA`, yang menunjukkan sumber percobaan tidak berasal dari satu wilayah saja.
+Hasil query menunjukkan 19 entri, semua login gagal terjadi malam hari hingga hampir tengah malam. Lokasi akses tersebar di beberapa negara seperti `US`, `CAN`, `MEXICO`, `USA`, dan `CANADA`, menandakan percobaan tidak datang dari satu wilayah saja.
 
-Kemunculan beberapa username secara berulang dalam rentang tanggal yang berdekatan mengindikasikan percobaan akses berulang. Pola waktu yang tidak wajar, status login gagal, dan variasi lokasi menjadikan data ini relevan sebagai prioritas investigasi. Temuan ini memberi dasar yang jelas untuk melanjutkan analisis ke detail tanggal dan lokasi pada tahap berikutnya.
+Beberapa username muncul berulang dalam tanggal yang berdekatan, menandakan percobaan akses berulang. Pola waktu yang aneh, status gagal, dan variasi lokasi membuat data ini jadi prioritas investigasi. Temuan ini memberi dasar jelas untuk analisis lebih lanjut soal tanggal dan lokasi percobaan login.
 
 ---
 
 ## 📅 Login attempts on specific dates <a name="specificdate">
 
-Setelah pola login di luar jam kerja terlihat jelas, arah investigasi difokuskan pada tanggal yang memicu peringatan sistem. Tanggal 9 Mei 2022 menjadi titik perhatian karena bertepatan dengan peningkatan aktivitas login. Data dari satu hari sebelumnya ikut dianalisis agar konteks kejadian bisa dipahami dengan lebih utuh.
+Analisis dilanjutkan dengan menyoroti tanggal yang memicu peringatan sistem. Tanggal 9 Mei 2022 menjadi fokus karena ada lonjakan aktivitas login. Data sehari sebelumnya juga dianalisis supaya konteks kejadian lebih jelas.
 
-Pemfilteran data dilakukan menggunakan SQL dengan logika `OR`. Pendekatan ini memungkinkan dua tanggal dianalisis dalam satu query tanpa memisahkan alur data. Tujuan utama tetap pada membaca pola aktivitas secara menyeluruh, bukan sekadar menyoroti satu kejadian tunggal.
+Pemfilteran dilakukan menggunakan SQL dengan logika `OR`. Dua tanggal dianalisis dalam satu query tanpa memisahkan alur data. Tujuannya melihat pola aktivitas secara menyeluruh, bukan cuma satu kejadian.
 
 <img width="645" height="470" alt="Screenshot 2026-01-21 at 23-36-40 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/5f71a263-4dda-4595-9496-f494d8d4e648" />
 
-Hasil query menghasilkan 75 baris data yang merekam seluruh percobaan login pada kedua tanggal tersebut. Aktivitas tersebar dari dini hari hingga malam. Sebagian login berhasil, sementara cukup banyak yang gagal, menunjukkan intensitas percobaan akses yang tinggi dalam waktu singkat.
+Hasil query menunjukkan 75 baris data untuk kedua tanggal. Aktivitas tersebar dari dini hari sampai malam. Beberapa login berhasil, tapi cukup banyak yang gagal, menunjukkan percobaan akses tinggi dalam waktu singkat.
 
-Beberapa username muncul berulang pada dua tanggal berbeda dengan status login yang bervariasi. Pola ini memberi indikasi adanya percobaan akses berulang yang perlu diperhatikan. Data lokasi menunjukkan asal login dari berbagai negara dengan format yang tidak selalu konsisten, menandakan sumber akses yang beragam.
+Beberapa username muncul berulang pada kedua tanggal dengan status login berbeda. Pola ini mengindikasikan percobaan akses berulang. Data lokasi memperlihatkan asal login dari berbagai negara, kadang formatnya tidak konsisten, menunjukkan sumber akses beragam.
 
-Temuan ini menjadi jembatan antara analisis waktu dan lokasi. Pemahaman terhadap aktivitas pada tanggal tertentu membantu mempersempit fokus investigasi ke tahap berikutnya dengan dasar data yang lebih terarah dan relevan.
+Temuan ini jadi penghubung antara analisis waktu dan lokasi. Memahami aktivitas di tanggal tertentu membantu mempersempit fokus investigasi ke tahap berikut dengan dasar data yang lebih jelas dan relevan.
 
 ---
 
 ## 🌐 Login attempts outside authorized locations <a name="outside">
 
-Setelah analisis waktu dan tanggal selesai, perhatian diarahkan ke faktor lokasi. Tim keamanan telah memastikan bahwa aktivitas mencurigakan tidak berasal dari Meksiko, sehingga fokus difokuskan pada seluruh login dari luar wilayah tersebut. Lokasi digunakan sebagai petunjuk awal untuk melihat kemungkinan akses lintas negara yang tidak sesuai dengan pola kerja normal.
+Analisis dilanjutkan dengan meninjau lokasi login. Aktivitas mencurigakan yang bukan berasal dari Meksiko menjadi fokus utama. Lokasi dijadikan indikator awal untuk melihat kemungkinan akses lintas negara yang tidak sesuai pola kerja normal.
 
-Pemfilteran dilakukan menggunakan SQL dengan kombinasi `NOT` dan `LIKE` pada kolom country. Pendekatan ini dipilih karena penulisan nama negara tidak selalu konsisten. Entri seperti `MEX` dan `MEXICO` tetap dapat dikelompokkan dengan pola yang sama, lalu dikecualikan dari hasil menggunakan `NOT`.
+Pemfilteran menggunakan SQL dengan kombinasi `NOT` dan `LIKE` pada kolom country. Penulisan nama negara kadang tidak konsisten, misalnya `MEX` dan `MEXICO`. Query ini tetap bisa mengelompokkan entri yang sama lalu mengecualikannya menggunakan `NOT`.
 
 <img width="645" height="466" alt="Screenshot 2026-01-21 at 23-48-09 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/8318262b-2d0f-41fa-8d22-002a85e1e759" />
 
-Query tersebut menghasilkan 144 baris data yang seluruhnya berasal dari negara selain Meksiko. Aktivitas login datang dari beberapa wilayah seperti `US`, `USA`, `CAN`, dan `CANADA`. Pola ini menunjukkan bahwa sebagian besar akses sistem memang terjadi dari luar lokasi yang sebelumnya dianggap aman.
+Hasil query menampilkan 144 baris data dari negara selain Meksiko. Aktivitas login muncul dari `US`, `USA`, `CAN`, dan `CANADA`. Mayoritas akses sistem memang terjadi dari luar wilayah yang sebelumnya dianggap aman.
 
-Hasil data memperlihatkan kombinasi login berhasil dan gagal. Beberapa akun mencoba masuk berulang kali dari negara yang sama dalam waktu berdekatan. Pola ini mengarah pada kemungkinan percobaan brute force ringan atau penggunaan kredensial yang tidak valid dari luar wilayah operasional utama.
+Data menunjukkan kombinasi login berhasil dan gagal. Beberapa akun mencoba masuk berulang kali dari negara sama dalam waktu dekat. Pola ini mengindikasikan percobaan brute force ringan atau penggunaan kredensial tidak valid dari luar wilayah operasional utama.
 
-Temuan ini memperjelas konteks risiko yang muncul sebelumnya. Pengecualian Meksiko membantu mempersempit fokus analisis pada sumber akses eksternal yang perlu dipantau lebih ketat di tahap investigasi selanjutnya.
+Temuan ini memberi konteks risiko sebelumnya. Pengecualian Meksiko membantu mempersempit fokus investigasi pada sumber akses eksternal yang perlu dipantau lebih ketat pada tahap berikut.
 
 ## 👥 Employee segmentation for security updates <a name="securityupdate">
 
 ### a. Employees in marketing department
 
-Analisis kemudian diarahkan ke segmentasi karyawan. Fokusnya mengidentifikasi kelompok pengguna yang perlu diprioritaskan dalam pembaruan keamanan, terutama terkait perangkat dan akses ke sistem internal. Data diambil dari tabel `employees` dengan dua filter utama, yaitu departemen dan lokasi kantor. Departemen Marketing dipilih karena sering berinteraksi dengan pihak eksternal. Kantor dengan awalan East digunakan sebagai penanda satu klaster lokasi fisik yang perlu ditinjau lebih dalam.
+Analisis dilanjutkan dengan membagi karyawan ke dalam segmen untuk prioritas pembaruan keamanan. Fokusnya pada pengguna yang punya akses ke sistem internal dan perangkat yang sering digunakan. Data diambil dari tabel `employees` dengan dua filter: departemen dan lokasi kantor. Departemen Marketing dipilih karena banyak berinteraksi dengan pihak eksternal. Kantor yang namanya diawali East dijadikan indikator satu klaster lokasi fisik yang perlu diperiksa lebih detail.
 
-Query berikut menggabungkan kedua kriteria tersebut menggunakan operator `AND` dan `LIKE` untuk mencocokkan pola lokasi kantor:
+Query menggabungkan kedua kriteria pakai `AND` dan `LIKE` untuk mencocokkan pola lokasi kantor:
 
 <img width="645" height="234" alt="Screenshot 2026-01-22 at 00-01-20 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/5b5889a9-76c7-470f-be01-0b4737e1add4" />
 
-Hasil query menunjukkan tujuh karyawan dari departemen Marketing yang bekerja di kantor wilayah East. Data ini menampilkan informasi `username` dan `device_id` yang terhubung langsung dengan sistem organisasi. Output memperlihatkan sebagian besar karyawan memiliki `device_id` yang tercatat. Satu entri muncul dengan nilai `NULL`, menandakan perangkat yang belum terdaftar atau belum terhubung ke sistem manajemen aset. Kondisi ini perlu diperhatikan karena perangkat tanpa identifikasi berisiko tidak menerima pembaruan keamanan atau kebijakan kontrol akses.
+Hasil query menunjukkan tujuh karyawan Marketing di kantor East. Data menampilkan `username` dan `device_id` yang terhubung ke sistem organisasi. Sebagian besar perangkat tercatat, tapi ada satu yang `NULL`, artinya perangkat itu belum terdaftar atau belum terhubung ke sistem manajemen aset. Perangkat tanpa identifikasi ini berisiko tidak menerima pembaruan keamanan atau kebijakan kontrol akses.
 
-Segmentasi ini membantu tim keamanan menentukan sasaran distribusi security update secara lebih tepat. Identifikasi pengguna, departemen, dan lokasi memungkinkan tindakan lanjutan dilakukan secara fokus tanpa mengganggu operasional organisasi secara keseluruhan.
+Segmentasi ini membantu tim keamanan menentukan target distribusi update dengan tepat. Identifikasi pengguna, departemen, dan lokasi membuat tindakan keamanan bisa dilakukan fokus tanpa mengganggu operasional organisasi secara keseluruhan.
 
 ### b. Employees in finance or sales department
 
-Tahap segmentasi selanjutnya diarahkan pada karyawan dari departemen Finance dan Sales. Kedua tim ini dipilih karena menangani data sensitif dan memiliki frekuensi akses sistem yang tinggi, sehingga sering menjadi fokus utama dalam pembaruan keamanan dan pengaturan kontrol akses. Pengelompokan dua departemen dilakukan dalam satu proses menggunakan operator `OR`. Pendekatan ini memudahkan penarikan data tanpa perlu menjalankan query terpisah untuk masing-masing departemen.
+Tahap segmentasi berikutnya fokus pada karyawan di departemen Finance dan Sales. Kedua tim ini dipilih karena sering mengakses data sensitif dan intensitas penggunaan sistemnya tinggi, jadi perlu diperhatikan dalam pembaruan keamanan dan kontrol akses. Pengelompokan dua departemen dilakukan sekaligus pakai operator `OR` supaya data bisa ditarik tanpa query terpisah.
 
-Query SQL yang digunakan sebagai berikut:
+Query SQL yang digunakan terlihat seperti ini:
 
 <img width="645" height="406" alt="Screenshot 2026-01-22 at 00-15-10 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/8f594dcf-9cc9-41f6-9097-ac12e1e98433" />
 
-Hasil query menampilkan 71 karyawan dari kedua departemen tersebut. Data yang muncul mencakup `employee_id`, `username`, `department`, `office`, dan `device_id` yang penting untuk pengelolaan akun serta keamanan perangkat. Sebaran lokasi karyawan terlihat cukup luas, mencakup kantor North, South, East, West, hingga Central. Kondisi ini menunjukkan bahwa pembaruan keamanan perlu direncanakan lintas wilayah, tidak hanya terfokus pada satu lokasi.
+Hasil query menampilkan 71 karyawan Finance dan Sales. Data mencakup `employee_id`, `username`, `department`, `office`, dan `device_id` yang penting untuk pengelolaan akun dan keamanan perangkat. Lokasi karyawan cukup tersebar, mencakup North, South, East, West, sampai Central. Situasi ini menunjukkan pembaruan keamanan harus direncanakan lintas wilayah, bukan cuma satu lokasi.
 
-Beberapa baris data menunjukkan `device_id` bernilai `NULL`. Situasi ini menandakan adanya perangkat yang belum tercatat di sistem manajemen aset. Dari sudut pandang keamanan, perangkat tanpa identitas berisiko tertinggal dari pembaruan atau kebijakan proteksi yang berlaku.Segmentasi menggunakan logika `OR` membantu tim keamanan menyusun prioritas secara lebih rapi. Pemetaan berdasarkan departemen kritis memungkinkan langkah mitigasi dilakukan secara selektif dan terkontrol tanpa berdampak langsung ke seluruh organisasi.
+Beberapa `device_id` tercatat `NULL`, artinya ada perangkat yang belum terdaftar di sistem manajemen aset. Perangkat tanpa identitas berisiko tidak mendapatkan pembaruan atau kebijakan proteksi. Segmentasi pakai logika `OR` membantu tim keamanan menentukan prioritas dengan jelas. Pemetaan berdasarkan departemen kritis memungkinkan mitigasi dilakukan selektif dan terkendali tanpa mempengaruhi seluruh organisasi.
 
 ### c. Employees not in IT department
 
-Tahap ini menekankan segmentasi dengan exclusion filtering untuk memisahkan karyawan non IT dari proses tertentu dalam pembaruan keamanan. Tim IT biasanya memiliki kebijakan, jadwal, dan mekanisme pembaruan berbeda dibanding departemen lain. Pengecualian dilakukan menggunakan operator NOT di SQL, sehingga seluruh karyawan selain dari departemen IT dapat ditarik dalam satu query.
+Tahap ini fokus pada segmentasi karyawan yang bukan dari IT menggunakan exclusion filtering. Tim IT biasanya punya jadwal dan mekanisme pembaruan sendiri, berbeda dengan departemen lain. Operator `NOT` di SQL digunakan supaya seluruh karyawan selain IT bisa ditarik sekaligus dalam satu query.
 
-Berikut adalah query SQL yang digunakan:
+Query SQL yang dipakai seperti ini:
 
 <img width="645" height="416" alt="Screenshot 2026-01-22 at 01-24-33 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/e40f9fab-221a-4608-90ff-c0677bedb34b" />
 
-Query menghasilkan 161 karyawan dari berbagai departemen selain IT, termasuk Marketing, Finance, Sales, dan Human Resources. Data mencakup `employee_id`, `username`, `department`, `office`, dan `device_id` yang penting untuk memetakan cakupan pembaruan keamanan. Sebagian besar karyawan berada di luar IT dan tersebar di berbagai lokasi kantor. Kondisi ini menunjukkan kebutuhan untuk membedakan kebijakan security update antara tim teknis dan non teknis, terutama terkait waktu penerapan dan intervensi sistem.
+Hasilnya menunjukkan 161 karyawan non IT dari Marketing, Finance, Sales, dan Human Resources. Data menampilkan `employee_id`, `username`, `department`, `office`, dan `device_id` yang penting untuk memetakan cakupan pembaruan keamanan. Sebagian besar berada di luar IT dan tersebar di banyak lokasi kantor. Situasi ini menegaskan perlunya membedakan kebijakan security update antara tim teknis dan non teknis, khususnya soal waktu dan intervensi sistem.
 
-Beberapa entri `device_id` masih bernilai `NULL`, menandakan perangkat yang belum tercatat di inventaris dan berpotensi tidak menerima pembaruan otomatis. Exclusion filtering dengan `NOT` logic memungkinkan segmentasi yang lebih strategis. Tim keamanan dapat fokus mendistribusikan pembaruan ke kelompok relevan tanpa melibatkan IT di proses yang tidak diperlukan, menjaga efisiensi operasional sekaligus keamanan.
+Beberapa `device_id` masih `NULL`, menandakan perangkat belum tercatat di inventaris dan berisiko tidak menerima pembaruan otomatis. Exclusion filtering pakai `NOT` membuat segmentasi lebih strategis. Tim keamanan bisa fokus menyalurkan update ke kelompok relevan tanpa melibatkan IT untuk proses yang tidak diperlukan, menjaga efisiensi sekaligus keamanan.
 
 ---
 
 ## 📝 Final summary <a name="summary">
 
-Studi ini mendokumentasikan proses investigasi keamanan berbasis SQL dengan fokus pada analisis aktivitas login dan segmentasi karyawan di dalam sebuah organisasi. Seluruh tahapan dirancang sebagai bagian dari portofolio cybersecurity, dengan tujuan menunjukkan kemampuan teknis dalam membaca data, menyaring informasi, serta menarik insight yang relevan dari sudut pandang keamanan sistem.
+Studi kasus ini mencatat pengalaman melakukan investigasi keamanan pakai SQL dengan fokus pada analisis aktivitas login dan segmentasi karyawan di sebuah organisasi. Seluruh langkah dibuat sebagai bagian portofolio cybersecurity untuk menunjukkan kemampuan membaca data, menyaring informasi, dan menarik insight relevan dari perspektif keamanan sistem.
 
-Investigasi diawali dengan peninjauan log login sebagai indikator awal potensi insiden. Analisis terhadap login gagal di luar jam kerja menunjukkan pola akses yang tidak lazim dan layak mendapat perhatian lebih lanjut. Penggunaan operator `AND`, filter waktu, serta kondisi keberhasilan login memperlihatkan bagaimana SQL dapat digunakan secara efektif untuk mempersempit ruang lingkup investigasi.
+Investigasi dimulai dengan meninjau log login sebagai indikator awal potensi insiden. Analisis login gagal di luar jam kerja memperlihatkan pola akses tidak biasa yang perlu diperhatikan lebih lanjut. Operator `AND`, filter waktu, dan status login dipakai untuk mempersempit ruang lingkup investigasi secara efektif.
 
-Tahap berikutnya berfokus pada penyaringan data berdasarkan tanggal tertentu dengan `OR` logic, yang membantu mengisolasi aktivitas pada periode spesifik tanpa kehilangan konteks historis. Pendekatan ini memperkuat pemahaman terhadap pola login dalam rentang waktu yang berdekatan dan mendukung analisis berbasis kronologi.
+Tahap berikutnya menekankan penyaringan berdasarkan tanggal tertentu pakai logika `OR`, sehingga aktivitas pada periode spesifik bisa dianalisis tanpa kehilangan konteks historis. Pendekatan ini membantu memahami pola login dalam rentang waktu dekat dan mendukung analisis kronologis.
 
-Selain log aktivitas, investigasi diperluas ke tabel karyawan untuk melakukan segmentasi pengguna. Berbagai skenario diterapkan, termasuk penyaringan berdasarkan departemen dan lokasi kantor menggunakan kombinasi `AND` dan `LIKE`, pengelompokan lintas departemen dengan `OR`, serta pengecualian departemen tertentu melalui `NOT` logic. Setiap pendekatan menunjukkan peran SQL dalam mendukung pengambilan keputusan keamanan yang terarah.
+Selain log aktivitas, investigasi diperluas ke tabel karyawan untuk segmentasi pengguna. Penyaringan dilakukan berdasarkan departemen dan lokasi kantor pakai `AND` dan `LIKE`, pengelompokan lintas departemen pakai `OR`, dan pengecualian departemen tertentu pakai `NOT`. Setiap metode menunjukkan bagaimana SQL bisa mendukung pengambilan keputusan keamanan yang lebih terarah.
 
-Secara keseluruhan, portofolio ini menampilkan pemahaman praktis terhadap penggunaan SQL sebagai alat investigasi keamanan. Dokumentasi disusun secara terstruktur dan mudah dipahami, mencerminkan kemampuan analisis data, penalaran keamanan, serta kesiapan untuk menjelaskan proses teknis dalam konteks profesional dan kebutuhan rekrutmen di bidang cybersecurity.
+Keseluruhan portofolio ini menunjukkan pemahaman praktis penggunaan SQL untuk investigasi keamanan. Dokumentasi dibuat terstruktur dan mudah dipahami, mencerminkan kemampuan analisis data, penalaran keamanan, dan kesiapan menjelaskan proses teknis dalam konteks profesional maupun kebutuhan rekrutmen di bidang cybersecurity.
