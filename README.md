@@ -106,9 +106,11 @@ Temuan ini memberi konteks risiko sebelumnya. Pengecualian Meksiko membantu memp
 
 ### a. Employees in marketing department
 
-Analisis dilanjutkan dengan membagi karyawan ke dalam segmen untuk prioritas pembaruan keamanan. Fokusnya pada pengguna yang punya akses ke sistem internal dan perangkat yang sering digunakan. Data diambil dari tabel `employees` dengan dua filter, yaitu departemen dan lokasi kantor. Departemen Marketing dipilih karena banyak berinteraksi dengan pihak eksternal. Kantor yang namanya diawali East dijadikan indikator satu klaster lokasi fisik yang perlu diperiksa lebih detail.
+Analisis dilanjutkan dengan membagi karyawan ke dalam segmen untuk prioritas pembaruan keamanan. Fokusnya pada pengguna yang punya akses ke sistem internal dan perangkat yang sering digunakan.
 
-Query ini memadukan `AND` dan `LIKE` untuk mencocokkan pola lokasi kantor:
+Data diambil dari tabel `employees` dengan dua filter, yaitu departemen dan lokasi kantor. Departemen Marketing dipilih karena banyak berinteraksi dengan pihak eksternal. Kantor yang namanya diawali East dijadikan indikator satu klaster lokasi fisik yang perlu diperiksa lebih detail. Query ini memadukan `AND` dan `LIKE` untuk mencocokkan pola lokasi kantor.
+
+Query SQL yang dipakai seperti ini:
 
 <img width="645" height="234" alt="Screenshot 2026-01-22 at 00-01-20 Activity Filter with AND OR and NOT Google Skills" src="https://github.com/user-attachments/assets/5b5889a9-76c7-470f-be01-0b4737e1add4" />
 
